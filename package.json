@@ -20,5 +20,13 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Icecold007/MES.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Icecold007/MES/issues"
+  },
+  "homepage": "https://github.com/Icecold007/MES#readme"
 }
