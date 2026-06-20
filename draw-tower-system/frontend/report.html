@@ -5,7 +5,6 @@
     <title>Production Tracing Audit Report</title>
     <link rel="stylesheet" href="css/dashboard.css" />
     <link rel="stylesheet" href="css/form.css" />
-    <link rel="stylesheet" href="css/auth.css" />
   </head>
   <body>
     <header>
@@ -18,9 +17,14 @@
     <div class="main-layout">
       <aside class="sidebar">
         <ul class="sidebar-nav">
-          <li><a href="dashboard.html">Overview</a></li>
-          <li><a href="draw-data.html">Draw Entry Form</a></li>
-          <li><a href="report.html" class="active">Telemetry Report</a></li>
+          <li><a href="dashboard.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle">Draw Tower</a>
+            <ul class="dropdown-menu">
+              <li><a href="draw-data.html">Draw Entry Form</a></li>
+              <li><a href="report.html">Telemetry Report</a></li>
+            </ul>
+          </li>
         </ul>
       </aside>
       <main class="content-viewport">
@@ -46,7 +50,7 @@
             id="searchBtn"
             style="width: auto; height: 46px; margin: 0; padding: 0 2rem"
           >
-            Query Database Engine
+            Search Records
           </button>
         </div>
 

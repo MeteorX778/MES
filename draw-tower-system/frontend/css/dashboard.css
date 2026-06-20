@@ -4,117 +4,158 @@
   padding: 0;
   font-family: "Segoe UI", sans-serif;
 }
+
 body {
-  background: #0f172a;
-  color: #f8fafc;
+  background: #f9fafb;
+  color: #111827;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
+
 header {
-  background: #1e293b;
+  background: #ffffff;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #334155;
+  border-bottom: 1px solid #e5e7eb;
 }
+
 header h2 {
-  color: #38bdf8;
+  color: #000000;
   font-size: 1.5rem;
 }
+
 .user-zone {
   display: flex;
   align-items: center;
   gap: 1.5rem;
 }
+
 .logout-btn {
-  background: #dc2626;
+  background: #ef4444;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
+  transition: background 0.2s;
 }
+
 .logout-btn:hover {
-  background: #b91c1c;
+  background: #dc2626;
 }
+
 .main-layout {
   display: flex;
   flex: 1;
 }
+
 .sidebar {
   width: 260px;
-  background: #1e293b;
+  background: #ffffff;
   padding: 2rem 1rem;
-  border-right: 1px solid #334155;
+  border-right: 1px solid #e5e7eb;
 }
+
 .sidebar-nav {
   list-style: none;
 }
+
 .sidebar-nav li {
   margin-bottom: 0.75rem;
+  position: relative;
 }
+
 .sidebar-nav a {
   display: block;
   padding: 0.75rem 1rem;
-  color: #cbd5e1;
+  color: #374151;
   text-decoration: none;
   border-radius: 6px;
   font-weight: 500;
   transition: 0.2s;
 }
+
 .sidebar-nav a:hover,
 .sidebar-nav a.active {
-  background: #334155;
-  color: #38bdf8;
+  background: #f3f4f6;
+  color: #000000;
 }
+
+.dropdown-menu {
+  display: none;
+  list-style: none;
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu a {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
 .content-viewport {
   flex: 1;
   padding: 3rem;
   overflow-y: auto;
 }
+
 .welcome-hero {
-  background: radial-gradient(circle at top left, #1e293b, #0f172a);
-  border: 1px solid #334155;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   padding: 3rem;
   border-radius: 12px;
   margin-bottom: 2rem;
 }
+
 .welcome-hero h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  color: #000000;
 }
+
 .grid-menu {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
 }
+
 .menu-card {
-  background: #1e293b;
-  border: 1px solid #334155;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   padding: 2rem;
   border-radius: 8px;
   cursor: pointer;
   transition:
     transform 0.2s,
-    border-color 0.2s;
+    border-color 0.2s,
+    box-shadow 0.2s;
   text-decoration: none;
   color: inherit;
 }
+
 .menu-card:hover {
   transform: translateY(-4px);
-  border-color: #38bdf8;
+  border-color: #000000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
+
 .menu-card h3 {
-  color: #38bdf8;
+  color: #000000;
   margin-bottom: 0.5rem;
   font-size: 1.3rem;
 }
+
 .menu-card p {
-  color: #94a3b8;
+  color: #6b7280;
   font-size: 0.95rem;
   line-height: 1.5;
 }
