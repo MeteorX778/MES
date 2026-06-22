@@ -13,6 +13,16 @@ const msgBox = document.getElementById("msgBox");
 const submitBtn = document.getElementById("submitBtn");
 
 function displayFeedback(text, isErr = true) {
+  if (!isErr) {
+    const successPopup = document.getElementById("successPopup");
+    const successMessage = document.getElementById("successMessage");
+    successMessage.textContent = text;
+    successPopup.style.display = "flex";
+    setTimeout(() => {
+      successPopup.style.display = "none";
+    }, 3000); // Hide after 3 seconds
+    return;
+  }
   msgBox.textContent = text;
   msgBox.className = isErr ? "msg msg-error" : "msg msg-success";
   msgBox.style.display = "block";
@@ -95,10 +105,7 @@ form.addEventListener("submit", async (e) => {
         data.message || "Error occurred saving structural record context.",
       );
     } else {
-      displayFeedback(
-        "Success! Draw Tower production item successfully logged into historical database layer.",
-        false,
-      );
+      displayFeedback("Successfully saved", false);
       form.reset();
     }
   } catch (err) {
