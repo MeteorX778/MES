@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Draw Data Log Entry</title>
+    <link rel="stylesheet" href="css/auth.css" />
     <link rel="stylesheet" href="css/dashboard.css" />
     <link rel="stylesheet" href="css/form.css" />
   </head>
@@ -17,7 +18,7 @@
     <div class="main-layout">
       <aside class="sidebar">
         <ul class="sidebar-nav">
-          <li><a href="dashboard.html">Home</a></li>
+          <li><a href="dashboard.html">Overview</a></li>
           <li><a href="draw-data.html" class="active">Draw Entry Form</a></li>
           <li><a href="report.html">Telemetry Report</a></li>
         </ul>
@@ -29,6 +30,7 @@
             Record drawn batches immediately upon runtime completion.
           </p>
         </div>
+        <div></div>
         <div id="msgBox" class="msg"></div>
         <div class="form-card">
           <form id="drawDataForm">
@@ -171,17 +173,11 @@
               id="submitBtn"
               style="width: auto; padding: 0.75rem 3rem; float: right"
             >
-              Save
+              Save Production Data Row
             </button>
           </form>
         </div>
       </main>
-    </div>
-    <div id="successPopup" class="popup-container" style="display:none;">
-      <div class="popup-content">
-        <div class="tick-icon">✔</div>
-        <p id="successMessage"></p>
-      </div>
     </div>
     <script src="js/drawData.js"></script>
   </body>

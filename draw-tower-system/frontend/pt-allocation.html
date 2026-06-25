@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>PT Allocations Manager</title>
+    <link rel="stylesheet" href="css/auth.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/form.css" />
+    <style>
+      .report-table input[type="checkbox"] {
+        width: 18px !important;
+        height: 18px !important;
+        appearance: checkbox !important;
+        -webkit-appearance: checkbox !important;
+        cursor: pointer;
+        accent-color: #38bdf8;
+        display: inline-block;
+      }
+      .report-table th,
+      .report-table td {
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h2>Draw Tower Production</h2>
+      <div class="user-zone">
+        <span id="userDisplay">Admin: --</span>
+        <button class="logout-btn" id="logoutBtn">Terminal Logout</button>
+      </div>
+    </header>
+    <div class="main-layout">
+      <aside class="sidebar">
+        <ul class="sidebar-nav">
+          <li><a href="dashboard.html">Overview</a></li>
+          <li><a href="draw-data.html">Draw Entry Form</a></li>
+          <li><a href="report.html">Telemetry Report</a></li>
+          <li><a href="pt-entry.html">PT Entry</a></li>
+          <li>
+            <a href="pt-allocation.html" class="active"
+              >PT Allocation / Deallocation</a
+            >
+          </li>
+        </ul>
+      </aside>
+      <main class="content-viewport">
+        <div style="margin-bottom: 2rem">
+          <h2>PT Floor Allocations Console</h2>
+          <p style="color: #94a3b8">
+            Query, execute configuration assignments, or handle multi-row
+            tracking deallocations.
+          </p>
+        </div>
+
+        <div
+          class="report-search-panel"
+          style="
+            grid-template-columns: repeat(4, 1fr);
+            display: grid;
+            align-items: flex-end;
+          "
+        >
+          <div class="form-field">
+            <label>PT Machine</label>
+            <select id="filterMachine" required>
+              <option value="" disabled selected>Select Target</option>
+              <option value="PT01">PT01</option>
+              <option value="PT02">PT02</option>
+              <option value="PT03">PT03</option>
+              <option value="PT04">PT04</option>
+              <option value="PT05">PT05</option>
+              <option value="PT06">PT06</option>
+              <option value="PT07">PT07</option>
+              <option value="PT08">PT08</option>
+              <option value="PT09">PT09</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Operator Reference</label>
+            <input
+              type="text"
+              id="filterOperator"
+              required
+              placeholder="Type technician name..."
+            />
+          </div>
+          <div class="form-field">
+            <label>Shift Filter</label>
+            <select id="filterShift" required>
+              <option value="" disabled selected>Select Shift</option>
+              <option value="A">Shift A</option>
+              <option value="B">Shift B</option>
+              <option value="C">Shift C</option>
+            </select>
+          </div>
+          <button class="btn" id="allocateBtn" style="height: 46px; margin: 0">
+            Allocate Table Records
+          </button>
+        </div>
+
+        <div
+          style="margin-bottom: 1rem; display: flex; justify-content: flex-end"
+        >
+          <button
+            class="btn"
+            id="deleteSelectedBtn"
+            style="
+              background: #dc2626;
+              width: auto;
+              padding: 0.6rem 2rem;
+              display: none;
+              margin: 0;
+            "
+          >
+            Delete Selected Rows permanently
+          </button>
+        </div>
+
+        <div
+          id="tableContainer"
+          class="report-data-display"
+          style="display: block"
+        >
+          <table class="report-table" id="allocationTable">
+            <thead>
+              <tr style="border-bottom: 2px solid #475569">
+                <th style="width: 5%; text-align: center">
+                  <input type="checkbox" id="selectAllBox" />
+                </th>
+                <th>PT Number</th>
+                <th>Draw Barcode ID</th>
+                <th>Operator</th>
+                <th>Tower Cluster</th>
+                <th>Length</th>
+                <th>Start Date</th>
+                <th>Shift</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+            <tbody id="allocationTableBody"></tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+    <script src="js/dashboard.js"></script>
+    <script src="js/ptAllocation.js"></script>
+  </body>
+</html>

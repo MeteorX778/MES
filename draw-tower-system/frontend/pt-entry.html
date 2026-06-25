@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>PT Entry Logger</title>
+    <link rel="stylesheet" href="css/auth.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/form.css" />
+  </head>
+  <body>
+    <header>
+      <h2>Draw Tower Production</h2>
+      <div class="user-zone">
+        <span id="userDisplay">Admin: --</span>
+        <button class="logout-btn" id="logoutBtn">Terminal Logout</button>
+      </div>
+    </header>
+    <div class="main-layout">
+      <aside class="sidebar">
+        <ul class="sidebar-nav">
+          <li><a href="dashboard.html">Overview</a></li>
+          <li><a href="draw-data.html">Draw Entry Form</a></li>
+          <li><a href="report.html">Telemetry Report</a></li>
+          <li><a href="pt-entry.html" class="active">PT Entry</a></li>
+          <li><a href="pt-allocation.html">PT Allocation / Deallocation</a></li>
+        </ul>
+      </aside>
+      <main class="content-viewport">
+        <div style="margin-bottom: 2rem">
+          <h2>Post-Treatment (PT) Asset Logging</h2>
+          <p style="color: #94a3b8">
+            Create tracked entries for drawn fiber batches moving into
+            processing states.
+          </p>
+        </div>
+        <div id="msgBox" class="msg"></div>
+        <div class="form-card">
+          <form id="ptEntryForm">
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Entry Type</label>
+                <select id="entryType" required>
+                  <option value="Manual">Manual</option>
+                  <option value="Auto">Auto</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>PT Machine Number</label>
+                <select id="ptMachineNo" required>
+                  <option value="PT01">PT01</option>
+                  <option value="PT02">PT02</option>
+                  <option value="PT03">PT03</option>
+                  <option value="PT04">PT04</option>
+                  <option value="PT05">PT05</option>
+                  <option value="PT06">PT06</option>
+                  <option value="PT07">PT07</option>
+                  <option value="PT08">PT08</option>
+                  <option value="PT09">PT09</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>PT Barcode Tag (Unique)</label>
+                <input
+                  type="text"
+                  id="ptBarcode"
+                  required
+                  placeholder="Enter unique PT identifier"
+                />
+              </div>
+              <div class="form-field">
+                <label>Bobbin Classification</label>
+                <select id="bobbinType" required>
+                  <option value="50.4">50.4</option>
+                  <option value="25.2">25.2</option>
+                  <option value="50">50</option>
+                  <option value="ZTT">ZTT</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>PT Length (Meters)</label>
+                <input
+                  type="number"
+                  id="ptLength"
+                  required
+                  step="0.01"
+                  placeholder="0.00"
+                />
+              </div>
+              <div class="form-field">
+                <label>Parent Draw Barcode ID Reference</label>
+                <input
+                  type="text"
+                  id="drawBarcodeId"
+                  required
+                  placeholder="Type parent log barcode and blur to search"
+                />
+              </div>
+
+              <div
+                class="full-width"
+                id="readOnlySection"
+                style="display: none"
+              >
+                <h4>
+                  Verified Master Drawing Telemetry References
+                </h4>
+                <div class="reference-panel-grid">
+                  <div class="reference-panel-item">
+                    <span>Preform Glass ID:</span>
+                    <strong id="roPreform">--</strong>
+                  </div>
+                  <div class="reference-panel-item">
+                    <span>Tower Machine:</span>
+                    <strong id="roMachine">--</strong>
+                  </div>
+                  <div class="reference-panel-item">
+                    <span>Drawn Operator:</span>
+                    <strong id="roOperator">--</strong>
+                  </div>
+                  <div class="reference-panel-item">
+                    <span>Drawing Shift:</span>
+                    <strong id="roShift">--</strong>
+                  </div>
+                  <div class="reference-panel-item">
+                    <span>Product Spec:</span>
+                    <strong id="roProduct">--</strong>
+                  </div>
+                  <div class="reference-panel-item">
+                    <span>Fiber Count:</span>
+                    <strong id="roFiber">--</strong>
+                  </div>
+                  <div class="reference-panel-item">
+                    <span>Original Length:</span>
+                    <strong id="roLength">--</strong>
+                  </div>
+                  <div class="reference-panel-item">
+                    <span>Drawn Date:</span>
+                    <strong id="roDate">--</strong>
+                  </div>
+                  <div class="reference-panel-item">
+                    <span>Drawn Time:</span>
+                    <strong id="roTime">--</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label>Break Reason Structural Description</label>
+                <input
+                  type="text"
+                  id="breakReason"
+                  placeholder="Describe break conditions if any"
+                />
+              </div>
+              <div class="form-field">
+                <label>Start Date</label>
+                <input type="date" id="startDate" required />
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn"
+              id="submitBtn"
+              style="width: auto; padding: 0.75rem 3rem; float: right"
+            >
+              Save PT Entry Record
+            </button>
+          </form>
+        </div>
+      </main>
+    </div>
+    <script src="js/dashboard.js"></script>
+    <script src="js/ptEntry.js"></script>
+  </body>
+</html>

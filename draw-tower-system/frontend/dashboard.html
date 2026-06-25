@@ -16,13 +16,14 @@
     <div class="main-layout">
       <aside class="sidebar">
         <ul class="sidebar-nav">
-          <li><a href="dashboard.html" class="active">Home</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle">Draw Tower</a>
-            <ul class="dropdown-menu">
-              <li><a href="draw-data.html">Draw Entry Form</a></li>
-              <li><a href="report.html">Telemetry Report</a></li>
-            </ul>
+          <li><a href="dashboard.html" id="navOverview">Overview</a></li>
+          <li><a href="draw-data.html" id="navDraw">Draw Entry Form</a></li>
+          <li><a href="report.html" id="navReport">Telemetry Report</a></li>
+          <li><a href="pt-entry.html" id="navPtEntry">PT Entry</a></li>
+          <li>
+            <a href="pt-allocation.html" id="navPtAlloc"
+              >PT Allocation / Deallocation</a
+            >
           </li>
         </ul>
       </aside>
@@ -47,6 +48,20 @@
             <p>
               Instantly perform verified tracing audits by querying production
               batches across database profiles via Barcode scan tags.
+            </p>
+          </a>
+          <a href="pt-entry.html" class="menu-card">
+            <h3>PT Entry Form</h3>
+            <p>
+              Log incoming post-treatment variables, bobbin properties, and
+              runtime conditions for drawn fiber batches.
+            </p>
+          </a>
+          <a href="pt-allocation.html" class="menu-card">
+            <h3>PT Allocation / Deallocation</h3>
+            <p>
+              Manage and map active production assets to machines, operators,
+              and shifts with full multi-select delete capabilities.
             </p>
           </a>
         </div>
