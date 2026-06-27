@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Box Assembly Scanner Terminal</title>
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/form.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <style>
+      .report-table input[type="checkbox"] {
+        width: 18px !important;
+        height: 18px !important;
+        appearance: checkbox !important;
+        -webkit-appearance: checkbox !important;
+        cursor: pointer;
+        accent-color: #38bdf8;
+        display: inline-block;
+      }
+      .report-table th,
+      .report-table td {
+        vertical-align: middle;
+      }
+      .inline-badge {
+        background: #334155;
+        padding: 0.25rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        color: #38bdf8;
+        border: 1px solid #475569;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h2>Draw Tower Production</h2>
+      <div class="user-zone">
+        <span id="userDisplay">Admin: --</span>
+        <button class="logout-btn" id="logoutBtn">Terminal Logout</button>
+      </div>
+    </header>
+    <div class="main-layout">
+      <aside class="sidebar">
+        <ul class="sidebar-nav">
+          <li><a href="dashboard.html">Overview</a></li>
+          <li><a href="draw-data.html">Draw Entry Form</a></li>
+          <li><a href="report.html">Telemetry Report</a></li>
+          <li><a href="pt-entry.html">PT Entry</a></li>
+          <li><a href="pt-allocation.html">PT Allocation / Deallocation</a></li>
+          <li><a href="qc-entry.html">QC Entry Screen</a></li>
+          <li><a href="pv-entry.html">PV Entry</a></li>
+          <li>
+            <a href="box-scanning.html" class="active">Box Scanning Entry</a>
+          </li>
+        </ul>
+      </aside>
+      <main class="content-viewport">
+        <div style="margin-bottom: 2rem">
+          <h2>Box Scan Manifest Orchestrator</h2>
+          <p style="color: #94a3b8">
+            Group multiple processed individual bobbins together into unique
+            master packaging lots.
+          </p>
+        </div>
+
+        <div id="msgBox" class="msg"></div>
+
+        <div class="form-card" style="margin-bottom: 3rem">
+          <form id="boxManifestForm">
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Entry Packaging Date</label>
+                <input type="date" id="boxEntryDate" required />
+              </div>
+              <div class="form-field">
+                <label>Bobbin Type Option</label>
+                <select id="boxBobbinType" required>
+                  <option value="50.4">50.4</option>
+                  <option value="25.2">25.2</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Final Measured Length (Meters)</label>
+                <input
+                  type="number"
+                  id="boxFinalLength"
+                  required
+                  step="0.01"
+                  placeholder="0.00"
+                />
+              </div>
+              <div class="form-field">
+                <label>Fiber Configuration Colour</label>
+                <input
+                  type="text"
+                  id="boxFiberColour"
+                  required
+                  placeholder="e.g. Green, Aqua, Red"
+                />
+              </div>
+              <div class="form-field full-width">
+                <label
+                  >Box Tracking Barcode Target (Unique Container Key)</label
+                >
+                <input
+                  type="text"
+                  id="boxMasterBarcode"
+                  required
+                  placeholder="Scan or type unique Box ID key..."
+                />
+              </div>
+
+              <div
+                class="full-width"
+                style="
+                  background: #0f172a;
+                  padding: 1.5rem;
+                  border-radius: 6px;
+                  border: 1px dashed #475569;
+                  margin: 0.5rem 0;
+                "
+              >
+                <h4
+                  style="
+                    color: #38bdf8;
+                    margin-bottom: 1rem;
+                    text-transform: uppercase;
+                    font-size: 0.8rem;
+                    letter-spacing: 0.05em;
+                  "
+                >
+                  Staging Manifest Spool Array Deck (1 to 4 Bobbins max)
+                </h4>
+                <div
+                  style="
+                    display: flex;
+                    gap: 1rem;
+                    margin-bottom: 1rem;
+                    align-items: flex-end;
+                  "
+                >
+                  <div class="form-field" style="flex: 1">
+                    <label style="font-size: 0.75rem"
+                      >Scan Bobbin Barcode Value</label
+                    >
+                    <input
+                      type="text"
+                      id="tempBobbinInput"
+                      placeholder="Scan item sticker identifier..."
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    class="btn"
+                    id="addBobbinToArrayBtn"
+                    style="
+                      width: auto;
+                      height: 46px;
+                      margin: 0;
+                      padding: 0 2rem;
+                      background: #334155;
+                    "
+                  >
+                    Add Bobbin
+                  </button>
+                </div>
+                <div
+                  id="stagingArrayContainer"
+                  style="display: flex; flex-direction: column; gap: 0.5rem"
+                ></div>
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn"
+              id="submitBoxManifestBtn"
+              style="width: auto; padding: 0.75rem 3rem; float: right"
+            >
+              Save Box Manifest
+            </button>
+          </form>
+        </div>
+
+        <div
+          style="margin-bottom: 1rem; display: flex; justify-content: flex-end"
+        >
+          <button
+            class="btn"
+            id="deleteSelectedBoxesBtn"
+            style="
+              background: #dc2626;
+              width: auto;
+              padding: 0.6rem 2rem;
+              display: none;
+              margin: 0;
+            "
+          >
+            Delete Selected Boxes permanently
+          </button>
+        </div>
+
+        <div class="report-data-display" style="display: block">
+          <table class="report-table">
+            <thead>
+              <tr style="border-bottom: 2px solid #475569">
+                <th style="width: 5%; text-align: center">
+                  <input type="checkbox" id="selectAllBoxesBox" />
+                </th>
+                <th>Box Barcode</th>
+                <th>Entry Date</th>
+                <th>Bobbin Type</th>
+                <th>Final Length</th>
+                <th>Fiber Colour</th>
+                <th>Bobbin Count</th>
+              </tr>
+            </thead>
+            <tbody id="boxTableBody"></tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+    <script src="js/dashboard.js"></script>
+    <script src="js/boxScanning.js"></script>
+  </body>
+</html>

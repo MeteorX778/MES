@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>QC Entry Evaluation Screen</title>
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/form.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+  </head>
+  <body>
+    <header>
+      <h2>Draw Tower Production</h2>
+      <div class="user-zone">
+        <span id="userDisplay">Admin: --</span>
+        <button class="logout-btn" id="logoutBtn">Terminal Logout</button>
+      </div>
+    </header>
+    <div class="main-layout">
+      <aside class="sidebar">
+        <ul class="sidebar-nav">
+          <li><a href="dashboard.html">Overview</a></li>
+          <li><a href="draw-data.html">Draw Entry Form</a></li>
+          <li><a href="report.html">Telemetry Report</a></li>
+          <li><a href="pt-entry.html">PT Entry</a></li>
+          <li><a href="pt-allocation.html">PT Allocation / Deallocation</a></li>
+          <li><a href="qc-entry.html" class="active">QC Entry Screen</a></li>
+          <li><a href="pv-entry.html">PV Entry</a></li>
+          <li><a href="box-scanning.html">Box Scanning Entry</a></li>
+        </ul>
+      </aside>
+      <main class="content-viewport">
+        <div style="margin-bottom: 2rem">
+          <h2>QC Evaluation Matrix</h2>
+          <p style="color: #94a3b8">
+            Cross-verify production batch parameters against factory target
+            requirements.
+          </p>
+        </div>
+
+        <div id="msgBox" class="msg"></div>
+
+        <div
+          class="form-card"
+          id="verificationCard"
+          style="margin-bottom: 2rem"
+        >
+          <div class="form-grid">
+            <div class="form-field">
+              <label>Preform ID</label>
+              <input
+                type="text"
+                id="vPreformId"
+                required
+                placeholder="Enter Preform ID"
+              />
+            </div>
+            <div class="form-field">
+              <label>Barcode ID (Draw Barcode)</label>
+              <input
+                type="text"
+                id="vBarcodeId"
+                required
+                placeholder="Enter Draw Barcode ID"
+              />
+            </div>
+            <div class="form-field full-width">
+              <label>PT Number (PT Barcode)</label>
+              <input
+                type="text"
+                id="vPtNumber"
+                required
+                placeholder="Enter PT Barcode"
+              />
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn"
+            id="verifyBatchBtn"
+            style="width: auto; padding: 0.75rem 3rem"
+          >
+            Verify Batch Lineage
+          </button>
+        </div>
+
+        <div class="form-card" id="qcEntryFormContainer" style="display: none">
+          <form id="qcMainEvaluationForm">
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 2.5rem;
+                margin-bottom: 1.5rem;
+              "
+            >
+              <div>
+                <h3
+                  style="
+                    color: #38bdf8;
+                    margin-bottom: 1.5rem;
+                    font-size: 1.1rem;
+                    text-transform: uppercase;
+                  "
+                >
+                  Operator Entered Value
+                </h3>
+
+                <h4
+                  style="
+                    color: #cbd5e1;
+                    font-size: 0.9rem;
+                    margin-bottom: 0.75rem;
+                  "
+                >
+                  Coating Parameters
+                </h4>
+                <div class="form-field" style="margin-bottom: 0.75rem">
+                  <label style="font-size: 0.75rem"
+                    >Sec Coat Dia Top (um)</label
+                  >
+                  <input
+                    type="text"
+                    id="qc_sec_coat_top"
+                    required
+                    placeholder="0.00"
+                  />
+                </div>
+                <div class="form-field" style="margin-bottom: 0.75rem">
+                  <label style="font-size: 0.75rem"
+                    >Sec Coat Dia Bot (um)</label
+                  >
+                  <input
+                    type="text"
+                    id="qc_sec_coat_bot"
+                    required
+                    placeholder="0.00"
+                  />
+                </div>
+                <div class="form-field" style="margin-bottom: 1.5rem">
+                  <label style="font-size: 0.75rem">Sec Conc Top (um)</label>
+                  <input
+                    type="text"
+                    id="qc_sec_conc_top"
+                    required
+                    placeholder="0.00"
+                  />
+                </div>
+
+                <h4
+                  style="
+                    color: #cbd5e1;
+                    font-size: 0.9rem;
+                    margin-bottom: 0.75rem;
+                  "
+                >
+                  Geometry Properties
+                </h4>
+                <div class="form-field" style="margin-bottom: 0.75rem">
+                  <label style="font-size: 0.75rem">Clad Dia Top (um)</label>
+                  <input
+                    type="text"
+                    id="qc_clad_top"
+                    required
+                    placeholder="0.00"
+                  />
+                </div>
+                <div class="form-field" style="margin-bottom: 0.75rem">
+                  <label style="font-size: 0.75rem">Clad Dia Bot (um)</label>
+                  <input
+                    type="text"
+                    id="qc_clad_bot"
+                    required
+                    placeholder="0.00"
+                  />
+                </div>
+                <div class="form-field" style="margin-bottom: 1.5rem">
+                  <label style="font-size: 0.75rem">Clad Ovl Bot (%)</label>
+                  <input
+                    type="text"
+                    id="qc_clad_ovl_bot"
+                    required
+                    placeholder="0.00"
+                  />
+                </div>
+
+                <h4
+                  style="
+                    color: #cbd5e1;
+                    font-size: 0.9rem;
+                    margin-bottom: 0.75rem;
+                  "
+                >
+                  CD / PMD Telemetry
+                </h4>
+                <div class="form-field" style="margin-bottom: 0.75rem">
+                  <label style="font-size: 0.75rem">ZD Wave Len (nm)</label>
+                  <input
+                    type="text"
+                    id="qc_zd_wave_len"
+                    required
+                    placeholder="0.00"
+                  />
+                </div>
+                <div class="form-field" style="margin-bottom: 0.75rem">
+                  <label style="font-size: 0.75rem">Slope (ps/nm²)</label>
+                  <input
+                    type="text"
+                    id="qc_slope"
+                    required
+                    placeholder="0.00"
+                  />
+                </div>
+                <div class="form-field" style="margin-bottom: 0.75rem">
+                  <label style="font-size: 0.75rem">CD1285 (ps/nm_km)</label>
+                  <input
+                    type="text"
+                    id="qc_cd1285"
+                    required
+                    placeholder="0.00"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <h3
+                  style="
+                    color: #94a3b8;
+                    margin-bottom: 1.5rem;
+                    font-size: 1.1rem;
+                    text-transform: uppercase;
+                  "
+                >
+                  Expected Target Threshold
+                </h3>
+
+                <h4
+                  style="
+                    color: #475569;
+                    font-size: 0.9rem;
+                    margin-bottom: 0.75rem;
+                  "
+                >
+                  Coating Targets
+                </h4>
+                <div class="form-field" style="margin-bottom: 0.75rem">
+                  <label>&nbsp;</label
+                  ><input
+                    type="text"
+                    readonly
+                    value="245.0"
+                    style="background: #1e293b; color: #94a3b8"
+                  />
+                </div>
+                <div class="form-field" style="margin-bottom: 0.75rem">
+                  <label>&nbsp;</label
+                  ><input
+                    type="text"
+                    readonly
+                    value="245.0"
+                    style="background: #1e293b; color: #94a3b8"
+                  />
+                </div>
+                <div class="form-field" style="margin-bottom: 1.5rem">
+                  <label>&nbsp;</label
+                  ><input
+                    type="text"
+                    readonly
+                    value="12.0"
+                    style="background: #1e293b; color: #94a3b8"
+                  />
+                </div>
+
+                <h4
+                  style="
+                    color: #475569;
+                    font-size: 0.9rem;
+                    margin-bottom: 0.75rem;
+                  "
+                >
+                  Geometry Targets
+                </h4>
+                <div class="form-field" style="margin-bottom: 0.75rem">
+                  <label>&nbsp;</label
+                  ><input
+                    type="text"
+                    readonly
+                    value="125.0"
+                    style="background: #1e293b; color: #94a3b8"
+                  />
+                </div>
+                <div class="form-field" style="margin-bottom: 0.75rem">
+                  <label>&nbsp;</label
+                  ><input
+                    type="text"
+                    readonly
+                    value="125.0"
+                    style="background: #1e293b; color: #94a3b8"
+                  />
+                </div>
+                <div class="form-field" style="margin-bottom: 1.5rem">
+                  <label>&nbsp;</label
+                  ><input
+                    type="text"
+                    readonly
+                    value="1.0"
+                    style="background: #1e293b; color: #94a3b8"
+                  />
+                </div>
+
+                <h4
+                  style="
+                    color: #475569;
+                    font-size: 0.9rem;
+                    margin-bottom: 0.75rem;
+                  "
+                >
+                  CD / PMD Targets
+                </h4>
+                <div class="form-field" style="margin-bottom: 0.75rem">
+                  <label>&nbsp;</label
+                  ><input
+                    type="text"
+                    readonly
+                    value="1312.0"
+                    style="background: #1e293b; color: #94a3b8"
+                  />
+                </div>
+                <div class="form-field" style="margin-bottom: 0.75rem">
+                  <label>&nbsp;</label
+                  ><input
+                    type="text"
+                    readonly
+                    value="0.092"
+                    style="background: #1e293b; color: #94a3b8"
+                  />
+                </div>
+                <div class="form-field" style="margin-bottom: 0.75rem">
+                  <label>&nbsp;</label
+                  ><input
+                    type="text"
+                    readonly
+                    value="3.5"
+                    style="background: #1e293b; color: #94a3b8"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="flawsBox"
+              style="
+                background: #7f1d1d;
+                border: 1px solid #b91c1c;
+                border-radius: 6px;
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+                display: none;
+                text-align: left;
+              "
+            >
+              <h4
+                style="
+                  color: #fca5a5;
+                  margin-bottom: 0.5rem;
+                  text-transform: uppercase;
+                  font-size: 0.85rem;
+                  letter-spacing: 0.05em;
+                "
+              >
+                QC Target Deviation Breakdown
+              </h4>
+              <ul
+                id="flawsList"
+                style="
+                  color: #fca5a5;
+                  padding-left: 1.25rem;
+                  font-size: 0.95rem;
+                  line-height: 1.6;
+                "
+              ></ul>
+            </div>
+
+            <button type="submit" class="btn" id="submitGradeBtn">
+              Calculate & Commit Grade Status
+            </button>
+          </form>
+        </div>
+      </main>
+    </div>
+    <script src="js/dashboard.js"></script>
+    <script src="js/qcEntry.js"></script>
+  </body>
+</html>

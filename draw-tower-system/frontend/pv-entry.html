@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>PV Integration Terminal</title>
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/form.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <style>
+      .report-table input[type="checkbox"] {
+        width: 18px !important;
+        height: 18px !important;
+        appearance: checkbox !important;
+        -webkit-appearance: checkbox !important;
+        cursor: pointer;
+        accent-color: #38bdf8;
+        display: inline-block;
+      }
+      .report-table th,
+      .report-table td {
+        vertical-align: middle;
+      }
+      .action-tray {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        justify-content: flex-end;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h2>Draw Tower Production</h2>
+      <div class="user-zone">
+        <span id="userDisplay">Admin: --</span>
+        <button class="logout-btn" id="logoutBtn">Terminal Logout</button>
+      </div>
+    </header>
+    <div class="main-layout">
+      <aside class="sidebar">
+        <ul class="sidebar-nav">
+          <li><a href="dashboard.html">Overview</a></li>
+          <li><a href="draw-data.html">Draw Entry Form</a></li>
+          <li><a href="report.html">Telemetry Report</a></li>
+          <li><a href="pt-entry.html">PT Entry</a></li>
+          <li><a href="pt-allocation.html">PT Allocation / Deallocation</a></li>
+          <li><a href="qc-entry.html">QC Entry Screen</a></li>
+          <li><a href="pv-entry.html" class="active">PV Entry</a></li>
+          <li><a href="box-scanning.html">Box Scanning Entry</a></li>
+        </ul>
+      </aside>
+      <main class="content-viewport">
+        <div style="margin-bottom: 2rem">
+          <h2>PV Engineering Controls Console</h2>
+          <p style="color: #94a3b8">
+            Log pressure parameters, batch designations, and process quality
+            outcomes.
+          </p>
+        </div>
+
+        <div id="msgBox" class="msg"></div>
+
+        <div class="form-card" style="margin-bottom: 3rem">
+          <form id="pvEntryForm">
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Shift Incharge</label>
+                <select id="pvShiftIncharge" required>
+                  <option value="A">Shift A</option>
+                  <option value="B">Shift B</option>
+                  <option value="C">Shift C</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Operator Reference</label>
+                <select id="pvOperator" required>
+                  <option value="" disabled selected>Loading...</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Select Colour</label>
+                <select id="pvColour" required>
+                  <option value="Yellow">Yellow</option>
+                  <option value="Blue">Blue</option>
+                  <option value="Black">Black</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Barcode ID Reference</label>
+                <select id="pvBarcodeId" required>
+                  <option value="" disabled selected>Loading...</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Gas Batch Status</label>
+                <select id="pvGasBatch" required>
+                  <option value="PV Acceptance">PV Acceptance</option>
+                  <option value="PV Rejection">PV Rejection</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Engineering Remark (Optional)</label>
+                <input
+                  type="text"
+                  id="pvRemark"
+                  placeholder="Enter process text notes..."
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn"
+              id="savePvBtn"
+              style="width: auto; padding: 0.75rem 3rem; float: right"
+            >
+              Save PV Configuration
+            </button>
+          </form>
+        </div>
+
+        <div class="action-tray">
+          <button
+            class="btn"
+            id="gradePassedBtn"
+            style="
+              background: #14532d;
+              width: auto;
+              padding: 0.6rem 2rem;
+              display: none;
+              margin: 0;
+            "
+          >
+            Mark PASSED
+          </button>
+          <button
+            class="btn"
+            id="gradeFailedBtn"
+            style="
+              background: #7f1d1d;
+              width: auto;
+              padding: 0.6rem 2rem;
+              display: none;
+              margin: 0;
+            "
+          >
+            Mark FAILED
+          </button>
+          <button
+            class="btn"
+            id="deletePvBtn"
+            style="
+              background: #dc2626;
+              width: auto;
+              padding: 0.6rem 2rem;
+              display: none;
+              margin: 0;
+            "
+          >
+            Delete Selected
+          </button>
+        </div>
+
+        <div class="report-data-display" style="display: block">
+          <table class="report-table">
+            <thead>
+              <tr style="border-bottom: 2px solid #475569">
+                <th style="width: 5%; text-align: center">
+                  <input type="checkbox" id="selectAllPvBox" />
+                </th>
+                <th>Barcode ID</th>
+                <th>Operator</th>
+                <th>Shift</th>
+                <th>Colour</th>
+                <th>Gas Batch</th>
+                <th>Remark</th>
+                <th>Grade Status</th>
+                <th>Created At</th>
+              </tr>
+            </thead>
+            <tbody id="pvTableBody"></tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+    <script src="js/dashboard.js"></script>
+    <script src="js/pvEntry.js"></script>
+  </body>
+</html>
